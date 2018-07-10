@@ -1,0 +1,46 @@
+
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+mainClassName = "engineTester.MainGameLoop"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+import org.gradle.internal.os.OperatingSystem
+
+project.ext.lwjglVersion = "3.1.0"
+
+switch (OperatingSystem.current()) {
+	case OperatingSystem.WINDOWS:
+		project.ext.lwjglNatives = "natives-windows"
+		break
+	case OperatingSystem.LINUX:
+		project.ext.lwjglNatives = "natives-linux"
+		break
+	case OperatingSystem.MAC_OS:
+		project.ext.lwjglNatives = "natives-macos"
+		break
+}
+
+repositories {
+	jcenter()
+    mavenCentral()
+}
+
+dependencies {	
+	compile "org.lwjgl:lwjgl:$lwjglVersion"
+	compile "org.lwjgl:lwjgl-glfw:$lwjglVersion"
+	compile "org.lwjgl:lwjgl-openal:$lwjglVersion"
+	compile "org.lwjgl:lwjgl-opengl:$lwjglVersion"
+	compile "org.lwjgl:lwjgl-stb:$lwjglVersion"
+	compile "org.lwjgl:lwjgl:$lwjglVersion:$lwjglNatives"
+	compile "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
+	compile "org.lwjgl:lwjgl-openal:$lwjglVersion:$lwjglNatives"
+	compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
+	compile group: 'slick-util', name: 'slick-util', version: '1.0.0'
+	
+    testCompile('junit:junit:4.12')
+}
