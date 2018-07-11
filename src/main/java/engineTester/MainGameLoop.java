@@ -2,7 +2,7 @@ package engineTester;
 
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 
-import org.lwjgl.Version;
+import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL;
 
 import renderEngine.DisplayManager;
@@ -12,8 +12,10 @@ import renderEngine.Renderer;
 
 public class MainGameLoop {
 
+    private static final Logger log = Logger.getLogger(MainGameLoop.class);
+
 	public static void main(String[] args) {
-		System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+		log.info("Started MainGameLoop...");
 		DisplayManager.createDisplay();
 		
 		// This line is critical for LWJGL's interoperation with GLFW's
@@ -56,5 +58,6 @@ public class MainGameLoop {
 
 		loader.cleanUp();
 		DisplayManager.closeDisplay();
+		log.info("Closing MainGameLoop...");
 	}
 }
