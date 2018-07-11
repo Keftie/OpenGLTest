@@ -40,7 +40,9 @@ dependencies {
 	compile "org.lwjgl:lwjgl-glfw:$lwjglVersion:$lwjglNatives"
 	compile "org.lwjgl:lwjgl-openal:$lwjglVersion:$lwjglNatives"
 	compile "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
-	compile group: 'slick-util', name: 'slick-util', version: '1.0.0'
-	
-    testCompile('junit:junit:4.12')
+	compile "slick-util:slick-util:1.0.0"
+
+	compile "log4j:log4j:1.2.17"
+
+	testCompile "junit:junit:4.12"
 }

@@ -4,6 +4,9 @@
 .settings/
 bin/
 
+# Intellij
+.idea/
+
 # Gradle
 .gradle/
 build/
