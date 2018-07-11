@@ -1,16 +1,14 @@
 package engineTester;
 
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
 
 import org.lwjgl.Version;
 import org.lwjgl.opengl.GL;
 
 import renderEngine.DisplayManager;
+import renderEngine.Loader;
+import renderEngine.RawModel;
+import renderEngine.Renderer;
 
 public class MainGameLoop {
 
@@ -24,18 +22,39 @@ public class MainGameLoop {
 		// creates the GLCapabilities instance and makes the OpenGL
 		// bindings available for use.
 		GL.createCapabilities();
+
+        Loader loader = new Loader();
+        Renderer renderer = new Renderer();
+
+        // OpenGL expects vertices to be defined counter clockwise by default
+        float[] vertices = {
+                // Left bottom triangle
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                // Right top triangle
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                -0.5f, 0.5f, 0f
+        };
+
+        RawModel model = loader.loadToVAO(vertices);
+        log.info("Model loaded: " + model);
 		
 		// Run the rendering loop until the user has attempted to close
 		// the window or has pressed the ESCAPE key.
 		while(!glfwWindowShouldClose(DisplayManager.window)) {
+		    renderer.prepare();
+
 			// game logic
 			
 			// render
+            renderer.render(model);
 
-			glfwSwapBuffers(DisplayManager.window); // swap the color buffers
 			DisplayManager.updateDisplay();
 		}
-		
+
+		loader.cleanUp();
 		DisplayManager.closeDisplay();
 	}
 }
