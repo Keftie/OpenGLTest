@@ -28,7 +28,10 @@ public class Loader {
         log.debug("VAO created: " + vaoID);
         storeDataInAttributeList(0, postitions);
         unbindVAO();
-        return new RawModel(vaoID, postitions.length / 3);
+        RawModel model = new RawModel(vaoID, postitions.length / 3);
+
+        log.info("Created new model: " + model);
+        return model;
     }
 
     /**
